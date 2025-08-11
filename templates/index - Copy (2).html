@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Translator</title>
+</head>
+<body>
+    <h1>Text Translator</h1>
+    <textarea id="inputText" rows="4" cols="50" placeholder="Enter text here..."></textarea><br><br>
+    <button onclick="translateText()">Translate</button>
+    <h3>Translated Text:</h3>
+    <div id="output"></div>
+    <script>
+        function translateText() {
+            const text = document.getElementById('inputText').value;
+
+            fetch('http://127.0.0.1:5000/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.translated_text;
+            })
+            .catch(error => {
+                document.getElementById('output').innerText = 'Error: ' + error;
+            });
+        }
+    </script>
+</body>
+</html>
