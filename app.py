@@ -21,8 +21,14 @@ if __name__ == "__main__":
 
     @app.route('/')
     def home():
+        try:
+        return render_template('index.html')
+    except Exception as e:
+        return f"Error loading template: {str(e)}"
+
+@app.route('/')
+def home():
     try:
-        
         return render_template('index.html')
     except Exception as e:
         return f"Error loading template: {str(e)}"
